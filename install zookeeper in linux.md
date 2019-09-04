@@ -88,6 +88,18 @@ Mode: standalone
 * 当前处于哪个目录，执行完 zkServer.sh start 命令， zookeeper.out 就会写在哪个目录。
 * vi zookeeper.out 可以查看报错信息。然后再搜索解决。
 
+例如：这是一个端口占用，导致 zookeeper 启动失败的问题
+``` bash
+[root@kube-node1 bin]# ./zkServer.sh status
+ZooKeeper JMX enabled by default
+Using config: /usr/local/zookeeper/zookeeper-3.4.14/bin/../conf/zoo.cfg
+Error contacting service. It is probably not running.
+[root@kube-node1 bin]# netstat -apn | grep 2181
+tcp        0      0 0.0.0.0:2181            0.0.0.0:*               LISTEN      15274/java          
+[root@kube-node1 bin]# kill 15274
+[root@kube-node1 bin]# ./zkServer.sh restart
+```
+
 ### zookeeper 使用
 通过 ./zkCli.sh 进入客户端后，就可以使用命令来操作zookeeper了。
 
