@@ -45,6 +45,9 @@ export PATH=$PATH:$ZOOKEEPER_INSTALL/bin
 ``` bash
 cd /usr/local/zookeeper/zookeeper-3.4.14/bin/
 ./zkServer.sh start
+# 其他常用操作
+./zkServer.sh stop
+./zkServer.sh restart
 ```
 启动成功效果如下：
 ``` bash
