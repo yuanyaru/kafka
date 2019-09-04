@@ -27,6 +27,17 @@ bin/zookeeper-server-start.sh  config/zookeeper.properties
 * 启动 kafka
 ``` bash
  bin/kafka-server-start.sh config/server.properties
+ 
+ # 启动成功
+ [root@kube-node1 bin]# jps
+3667 NameNode
+19299 ConsoleConsumer
+19876 Jps
+17461 Kafka
+12792 ResourceManager
+17400 QuorumPeerMain
+18841 ConsoleProducer
+3930 SecondaryNameNode
 ```
 
 4.创建 topic
