@@ -41,18 +41,18 @@ export PATH=$PATH:$ZOOKEEPER_INSTALL/bin
 ```
 
 ### 启动 zookeeper
-1.进入bin目录，并启动zookeep。
+1.进入 bin 目录，并启动 zookeep。
 ``` bash
 cd /usr/local/zookeeper/zookeeper-3.4.14/bin/
 ./zkServer.sh start
 ```
-2.启动成功效果如下：
+启动成功效果如下：
 ``` bash
 ZooKeeper JMX enabled by default
 Using config: /usr/local/zookeeper/zookeeper-3.4.14/bin/../conf/zoo.cfg
 Starting zookeeper ...STARTED
 ```
-3.zookeeper 的服务端启动后，还需要启动 zookeeper 的客户端：
+2.zookeeper 的服务端启动后，还需要启动 zookeeper 的客户端：
 ``` bash
 ./zkCli.sh
 ```
@@ -73,7 +73,7 @@ WATCHER::
 WatchedEvent state:SyncConnected type:None path:null
 [zk: localhost:2181(CONNECTED) 0]
 ```
-4.查看状态
+3.查看状态
 ``` bash
 ./zkServer.sh status
 ZooKeeper JMX enabled by default
@@ -176,7 +176,7 @@ Node not empty: /zk-test
 ```
 可以发现，一个节点存在子节点时，无法删除该节点。
 
-先删除子节点/zk-test/yuan，再删除父节点，如下：
+先删除子节点 /zk-test/yuan ，再删除父节点，如下：
 ``` bash
 [zk: localhost:2181(CONNECTED) 8] delete /zk-test/yuan
 [zk: localhost:2181(CONNECTED) 9] delete /zk-test     
