@@ -14,7 +14,8 @@ tar zxvf kafka_2.11-2.3.0.tgz -C /usr/local/kafka/
 3.启动服务
 
 * 启动 zookeeper
-启动zk有两种方式，第一种是使用 kafka 自己带的一个 zk。
+
+启动 zk 有两种方式，第一种是使用 kafka 自己带的一个 zk。
 ``` bash
 bin/zookeeper-server-start.sh  config/zookeeper.properties 
 ```
