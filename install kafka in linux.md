@@ -32,17 +32,22 @@ bin/zookeeper-server-start.sh  config/zookeeper.properties
 4.创建 topic
 ``` bash
 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+Created topic test.
 ```
 创建一个名为 test 的 topic ，只有一个副本，一个分区。
 
 通过 list 命令查看刚刚创建的 topic
 ``` bash
 bin/kafka-topics.sh -list -zookeeper localhost:2181
+
+test
 ```
 
 5.启动 producer 并发送消息
 ``` bash
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+[root@kube-node1 kafka_2.11-2.3.0]# bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+>hello
 ```
 启动之后就可以发送消息了
 
@@ -56,6 +61,7 @@ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beg
 发现在启动的时候说使用 --zookeeper 是一个过时的方法，最新的版本中命令如下：
 ``` bash
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+hello
 ```
 启动 consumer 之后就可以在 console 中看到 producer 发送的消息了
 
