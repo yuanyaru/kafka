@@ -14,7 +14,8 @@ tar zxvf kafka_2.11-2.3.0.tgz -C /usr/local/kafka/
 3.启动服务
 
 * 启动 zookeeper
-启动zk有两种方式，第一种是使用 kafka 自己带的一个 zk。
+
+启动 zk 有两种方式，第一种是使用 kafka 自己带的一个 zk。
 ``` bash
 bin/zookeeper-server-start.sh  config/zookeeper.properties 
 ```
@@ -26,22 +27,38 @@ bin/zookeeper-server-start.sh  config/zookeeper.properties
 * 启动 kafka
 ``` bash
  bin/kafka-server-start.sh config/server.properties
+ 
+ # 启动成功
+ [root@kube-node1 bin]# jps
+3667 NameNode
+19299 ConsoleConsumer
+19876 Jps
+17461 Kafka
+12792 ResourceManager
+17400 QuorumPeerMain
+18841 ConsoleProducer
+3930 SecondaryNameNode
 ```
 
 4.创建 topic
 ``` bash
 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+Created topic test.
 ```
 创建一个名为 test 的 topic ，只有一个副本，一个分区。
 
 通过 list 命令查看刚刚创建的 topic
 ``` bash
 bin/kafka-topics.sh -list -zookeeper localhost:2181
+
+test
 ```
 
 5.启动 producer 并发送消息
 ``` bash
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+[root@kube-node1 kafka_2.11-2.3.0]# bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+>hello
 ```
 启动之后就可以发送消息了
 
@@ -55,6 +72,7 @@ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beg
 发现在启动的时候说使用 --zookeeper 是一个过时的方法，最新的版本中命令如下：
 ``` bash
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+hello
 ```
 启动 consumer 之后就可以在 console 中看到 producer 发送的消息了
 
