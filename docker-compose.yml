@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+  zoo1:
+    image: zookeeper
+    container_name: zoo
+    ports:
+      - 2181:2181
+
+  kafka1:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9092:9092'
+    container_name: kafka1
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zoo1:2181
+      - KAFKA_BROKER_ID=1
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.100.61:9092
+    depends_on:
+      - zoo1
+
+  kafka2:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9093:9092'
+    container_name: kafka2
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zoo1:2181
+      - KAFKA_BROKER_ID=2
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.100.61:9093
+    depends_on:
+      - zoo1
+
+  kafka3:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9094:9092'
+    container_name: kafka3
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zoo1:2181
+      - KAFKA_BROKER_ID=3
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.100.61:9094
+    depends_on:
+      - zoo1

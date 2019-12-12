@@ -1,0 +1,28 @@
+第一种方式：命令构建 kafka
+1. zookeeper 镜像选择官方镜像
+docker pull zookeeper
+docker run --name zoo -p 2181:2181 -d zookeeper
+
+2. kafka 镜像选择 bitnami/kafka
+docker pull bitnami/kafka
+docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.100.64:2181 -e ALLOW_PLAINTEXT_LISTENER=yes -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -d  bitnami/kafka
+
+docker容器部署必须指定以下环境变量：
+KAFKA_ZOOKEEPER_CONNECT: 指定 zookeeper 的地址：端口。
+ALLOW_PLAINTEXT_LISTENER: 允许使用PLAINTEXT侦听器。
+KAFKA_ADVERTISED_LISTENERS: 是指向Kafka代理的可用地址列表。Kafka将在初次连接时将它们发送给客户。格式为 PLAINTEXT://host:port,此处已将容器9092端口映射到宿主机9092端口,所以host指定为localhost，便可在宿主机执行测试程序连接 kafka。
+KAFKA_LISTENERS: 是Kafka代理将侦听传入连接的地址列表。格式为 PLAINTEXT://host:port,0.0.0.0代表接受所有地址。设置了上个变量就要设置此变量。
+
+第二种方式：docker-compose 构建kafka-cluster
+1. 使用 docker-compose 集群部署
+(1) docker-compose.yml
+(2) yum install -y docker-compose
+(3) docker-compose up -d
+(4) 验证
+[root@nodeb1 yyr]# docker-compose ps
+ Name               Command               State                          Ports
+------------------------------------------------------------------------------------------------------
+kafka1   /entrypoint.sh /run.sh           Up      0.0.0.0:9092->9092/tcp
+kafka2   /entrypoint.sh /run.sh           Up      0.0.0.0:9093->9092/tcp
+kafka3   /entrypoint.sh /run.sh           Up      0.0.0.0:9094->9092/tcp
+zoo      /docker-entrypoint.sh zkSe ...   Up      0.0.0.0:2181->2181/tcp, 2888/tcp, 3888/tcp, 8080/tcp
