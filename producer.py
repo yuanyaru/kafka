@@ -6,13 +6,13 @@ import json
 from kafka import KafkaProducer
 
 # 生产者生产消息
-producer = KafkaProducer(bootstrap_servers='192.168.100.71:9092')
+producer = KafkaProducer(bootstrap_servers='192.168.100.61:9092')
 
 msg_dict = {
     "sleep_time": 10,
     "db_config": {
         "database": "test",
-        "host": "192.168.100.71",
+        "host": "192.168.100.61",
         "user": "root",
         "password": "root"
     },
